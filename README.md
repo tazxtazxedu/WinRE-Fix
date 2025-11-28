@@ -1,6 +1,22 @@
 ﻿# WinRE-Fix
 
+[![Windows](https://img.shields.io/badge/Windows-10%2F11-blue?logo=windows)](https://www.microsoft.com/windows)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?logo=powershell)](https://docs.microsoft.com/powershell/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > PowerShell script to safely move/recreate Windows Recovery Environment (WinRE) to a new Recovery partition.
+
+**Keywords:** `WinRE` `Windows Recovery` `Recovery Partition` `reagentc` `KB5034441` `KB5028997` `CVE-2024-20666` `BitLocker` `Windows Update Fix` `Partition Resize` `GPT` `UEFI`
+
+---
+
+## 🎯 What This Script Solves
+
+This script helps fix common Windows Update errors related to WinRE partition:
+- **KB5034441** / **KB5028997** installation failures
+- "Windows Recovery Environment servicing failed" errors
+- Recovery partition too small for security updates
+- **CVE-2024-20666** BitLocker security update issues
 
 ---
 
