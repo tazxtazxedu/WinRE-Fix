@@ -99,10 +99,10 @@ Write-Log '=== WinRE Move Process Started ===' "INFO"
 # ============================================================
 Write-Host ""
 Write-Host "╔══════════════════════════════════════════════════════════════════╗" -ForegroundColor Red
-Write-Host "║  ⚠️  WARNING: BACKUP YOUR DATA BEFORE PROCEEDING!  ⚠️             ║" -ForegroundColor Red
-Write-Host "║                                                                    ║" -ForegroundColor Red
-Write-Host "║  This script modifies disk partitions. Data loss may occur.       ║" -ForegroundColor Red
-Write-Host "║  Make sure you have a full system backup before continuing.       ║" -ForegroundColor Red
+Write-Host "║  ⚠️  WARNING: BACKUP YOUR DATA BEFORE PROCEEDING!  ⚠️           ║" -ForegroundColor Red
+Write-Host "║                                                                  ║" -ForegroundColor Red
+Write-Host "║  This script modifies disk partitions. Data loss may occur.      ║" -ForegroundColor Red
+Write-Host "║  Make sure you have a full system backup before continuing.      ║" -ForegroundColor Red
 Write-Host "╚══════════════════════════════════════════════════════════════════╝" -ForegroundColor Red
 Write-Host ""
 
