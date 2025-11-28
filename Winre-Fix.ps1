@@ -30,7 +30,20 @@
     Author : tazxtazxedu
     GitHub : https://github.com/tazxtazxedu/WinRE-Fix
     License: MIT
-    Requires: Administrator privileges, Windows 10/11, GPT disk
+    
+    Supported OS:
+      - Windows 10 (1903+)
+      - Windows 11 (all versions)
+      - Windows Server 2016
+      - Windows Server 2019
+      - Windows Server 2022
+      - Windows Server 2025
+    
+    Requirements:
+      - Administrator privileges
+      - GPT disk (not MBR)
+      - UEFI boot mode
+      - Minimum 1.2 GB unallocated space on Disk 0
 #>
 param(
     [switch]$WhatIf,

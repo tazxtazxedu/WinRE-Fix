@@ -1,6 +1,6 @@
 ﻿# WinRE-Fix
 
-[![Windows](https://img.shields.io/badge/Windows-10%2F11-blue?logo=windows)](https://www.microsoft.com/windows)
+[![Windows](https://img.shields.io/badge/Windows-10%2F11%2FServer-blue?logo=windows)](https://www.microsoft.com/windows)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue?logo=powershell)](https://docs.microsoft.com/powershell/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -35,9 +35,13 @@ This script helps fix common Windows Update errors related to WinRE partition:
 `Winre-Fix.ps1` Windows Recovery Environment (WinRE) bileşenini güvenli bir şekilde yeni bir Recovery partition'a taşıyan/yeniden oluşturan bir PowerShell betiğidir.
 
 ### Gereksinimler
-- Windows 10/11 (reagentc aracı mevcut olmalı)
+- **Desteklenen İşletim Sistemleri:**
+  - Windows 10 (1903+)
+  - Windows 11 (tüm sürümler)
+  - Windows Server 2016 / 2019 / 2022 / 2025
 - **Yönetici (Administrator)** hakları ile çalıştırma zorunludur
 - PowerShell 5.1 veya PowerShell 7+
+- GPT disk (MBR değil) + UEFI boot modu
 
 ### ⚠️ Önemli Uyarılar
 - **Yedek alın!** Partition ve disk işlemleri veri kaybına yol açabilir.
@@ -110,9 +114,13 @@ This script helps fix common Windows Update errors related to WinRE partition:
 `Winre-Fix.ps1` is a PowerShell script that safely moves/recreates the Windows Recovery Environment (WinRE) to a new Recovery partition.
 
 ### Requirements
-- Windows 10/11 (must have `reagentc` available)
+- **Supported Operating Systems:**
+  - Windows 10 (1903+)
+  - Windows 11 (all versions)
+  - Windows Server 2016 / 2019 / 2022 / 2025
 - **Run as Administrator** (required)
 - PowerShell 5.1 or PowerShell 7+
+- GPT disk (not MBR) + UEFI boot mode
 
 ### ⚠️ Important Warnings
 - **Back up your data!** Disk/partition operations can cause data loss.
