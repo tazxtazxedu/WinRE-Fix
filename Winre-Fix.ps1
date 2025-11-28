@@ -1,4 +1,37 @@
-﻿# WinRE-Fix.ps1 - EN MÜKEMMEL HALİ
+﻿<#
+.SYNOPSIS
+    WinRE-Fix.ps1 - Windows Recovery Environment Partition Fix Tool
+    WinRE-Fix.ps1 - Windows Kurtarma Ortamı Bölümü Düzeltme Aracı
+
+.DESCRIPTION
+    EN: Moves WinRE to a new partition at the end of the disk, allowing C: drive 
+        expansion. Fixes KB5034441/KB5028997 Windows Update failures.
+    TR: WinRE'yi diskin sonuna taşır, C: sürücüsünün genişlemesine izin verir.
+        KB5034441/KB5028997 Windows Update hatalarını düzeltir.
+
+.PARAMETER WhatIf
+    EN: Simulate without making changes | TR: Değişiklik yapmadan simüle et
+
+.PARAMETER Force
+    EN: Skip confirmations | TR: Onayları atla
+
+.PARAMETER Verbose
+    EN: Show detailed output | TR: Detaylı çıktı göster
+
+.EXAMPLE
+    .\Winre-Fix.ps1 -WhatIf
+    # Simulate the operation / İşlemi simüle et
+
+.EXAMPLE
+    .\Winre-Fix.ps1 -Force
+    # Run without prompts / Onay sormadan çalıştır
+
+.NOTES
+    Author : tazxtazxedu
+    GitHub : https://github.com/tazxtazxedu/WinRE-Fix
+    License: MIT
+    Requires: Administrator privileges, Windows 10/11, GPT disk
+#>
 param(
     [switch]$WhatIf,
     [switch]$Force,
