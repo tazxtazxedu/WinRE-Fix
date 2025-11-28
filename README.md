@@ -1,134 +1,185 @@
-<<<<<<< HEAD
-# WinRE-Fix
-=======
-<!--
-  README for Winre-Fix.ps1
-  Bilingual (Turkish / English)
--->
+﻿# WinRE-Fix
 
-# WinRE-Fix
-
-**Türkçe / Turkish**
-
-## Özet
-
-`Winre-Fix.ps1` Windows Recovery Environment (WinRE) bileşenini güvenli bir şekilde yeni bir Recovery partition'a taşıma/yeniden oluşturma amaçlı bir PowerShell betiğidir. Betik; mevcut WinRE yerini tespit eder, WinRE'yi devre dışı bırakır (Winre.wim dosyasını korur), eski Recovery partition'ını kaldırır, `C:\` sürücüsünü genişletir/ayırır, yeni Recovery partition'ı oluşturur ve WinRE'yi yeniden etkinleştirir.
-
-## Gereksinimler
-- Windows (reagentc aracı mevcut olmalı)
-- Yönetici (Administrator) hakları ile çalıştırma zorunludur
-- PowerShell (varsayılan Windows PowerShell veya PowerShell 7)
-
-## Parametreler
-- `-WhatIf` : Gerçek değişiklik yapmadan adımları simüle eder (güvenli test modudur).
-- `-Force` : Onay istemeden bazı adımları (ör. eski partition silme) uygular.
-- `-Verbose` : Ayrıntılı çıktı/log için verbose modu.
-
-## Betiğin Yaptığı Adımlar (kısa)
-1. Yönetici kontrolü (yönetici değilse çıkış).
-2. `reagentc /info` ile mevcut WinRE konumunu tespit eder.
-3. `reagentc /disable` ile WinRE'yi devre dışı bırakır ve `C:\Windows\System32\Recovery\Winre.wim` dosyasını korur.
-4. Eski Recovery partition'ı (GPT tipi `{de94bba4-06d1-4d40-a16a-bfd50179d6ac}`) tespit ederek siler (isteğe bağlı onay ile).
-5. `C:` sürücüsünü genişletir ve yeni Recovery için 1 GB boş alan bırakır.
-6. Yeni partition oluşturur, NTFS ile formatlar ve GPT tipini Recovery tipi olarak ayarlar.
-7. Yeni partition üzerindeki uygun klasöre `Winre.wim` taşıma veya `reagentc /setreimage` + `reagentc /enable` adımlarıyla WinRE'yi yeniden etkinleştirir.
-8. İşlem log'u kullanıcı masaüstünde `WinRE-Fix-Log.txt` olarak tutulur.
-
-## Güvenlik ve Öneriler
-- Önce `-WhatIf` ile simülasyon çalıştırın: `.\\Winre-Fix.ps1 -WhatIf -Verbose`.
-- Bu tür disk/partition işleri veri kaybına yol açabilir; tam yedek alın.
-- Betik `DiskNumber 0` varsaydığı için çoklu diskli sistemlerde dikkatli olun; gerekirse betikte disk numarasını düzenleyin.
-```markdown
-# WinRE-Fix
-
-> PowerShell betiği: Windows Recovery Environment (WinRE) bileşenini güvenli şekilde yeni bir Recovery partition'a taşır/yeniden oluşturur.
-
-**Türkçe / Turkish**
-
-## Özet
-
-`Winre-Fix.ps1` mevcut WinRE yerini tespit eder, WinRE'yi devre dışı bırakır (Winre.wim korur), eski Recovery partition'ını kaldırır, `C:\` sürücüsünden alan ayırır, yeni Recovery partition'ı oluşturur ve WinRE'yi yeniden etkinleştirir.
-
-## Gereksinimler
-- Windows (reagentc aracı mevcut olmalı)
-- Yönetici hakları ile çalıştırma zorunludur
-- PowerShell (Windows PowerShell veya PowerShell 7)
-
-## Önemli: Yedek Alın
-- Partition ve disk işlemleri veri kaybına yol açabilir. Lütfen değişiklik yapmadan önce tam sistem yedeği veya en azından önemli dosyalarınızın yedeğini alın.
-- Öncelikle `-WhatIf` ile simülasyon çalıştırın.
-
-## Parametreler
-- `-WhatIf` : Gerçek değişiklik yapmadan adımları simüle eder (güvenli test modu).
-- `-Force` : Onay istemeden bazı adımları (ör. eski partition silme) uygular.
-- `-Verbose` : Ayrıntılı çıktı/log için verbose modu.
-
-## Kısa Adımlar
-1. Yönetici kontrolü
-2. `reagentc /info` ile WinRE konumunu tespit
-3. `reagentc /disable` ile WinRE'yi devre dışı bırakma (Winre.wim korunur)
-4. Eski Recovery partition'ını (GPT tipi `{de94bba4-06d1-4d40-a16a-bfd50179d6ac}`) tespit edip isteğe bağlı silme
-5. `C:` genişletme ve yeni partition için alan ayırma
-6. Yeni partition oluşturma, formatlama ve GPT tipini Recovery olarak ayarlama
-7. WinRE'yi yeniden etkinleştirme (`reagentc /enable`)
-
-## Örnek Kullanım
-```powershell
-# Simülasyon (güvenli)
-.\Winre-Fix.ps1 -WhatIf -Verbose
-
-# Normal çalıştırma (onay sorar)
-.\Winre-Fix.ps1
-
-# Onay istemeden (Force)
-.\Winre-Fix.ps1 -Force
-```
+> PowerShell script to safely move/recreate Windows Recovery Environment (WinRE) to a new Recovery partition.
 
 ---
 
-**English**
+## ⚠️🔴 BACKUP WARNING / YEDEK UYARISI 🔴⚠️
 
-## Summary
+| 🇹🇷 Türkçe | 🇬🇧 English |
+|------------|-------------|
+| **Bu script'i çalıştırmadan önce mutlaka tam sistem yedeği alın!** Disk/partition işlemleri geri dönüşü olmayan veri kaybına yol açabilir. | **Take a full system backup before running this script!** Disk/partition operations can cause irreversible data loss. |
 
-`Winre-Fix.ps1` is a PowerShell script to move/recreate the Windows Recovery Environment (WinRE) onto a new Recovery partition. It detects the current WinRE location, disables WinRE (preserving Winre.wim), removes the old Recovery partition, allocates space from `C:\`, creates a new Recovery partition, and re-enables WinRE.
+---
 
-## Requirements
-- Windows (must have `reagentc` available)
-- Run as Administrator
-- PowerShell (Windows PowerShell or PowerShell 7)
+## 🇹🇷 Türkçe
 
-## Important: Back Up First
-- Disk/partition operations can cause data loss. Make a full system backup or at least backup important files before making changes.
-- Run with `-WhatIf` to simulate first.
+### Özet
 
-## Parameters
-- `-WhatIf` : Simulate steps without making changes.
-- `-Force` : Skip confirmation prompts (e.g., deleting old partition).
-- `-Verbose` : Enable detailed output/logging.
+`Winre-Fix.ps1` Windows Recovery Environment (WinRE) bileşenini güvenli bir şekilde yeni bir Recovery partition'a taşıyan/yeniden oluşturan bir PowerShell betiğidir.
 
-## Brief Steps
-1. Check Administrator privileges
-2. Find WinRE location with `reagentc /info`
-3. Disable WinRE with `reagentc /disable` (preserves `Winre.wim`)
-4. Remove old Recovery partition if applicable
-5. Extend `C:` and reserve space for Recovery
-6. Create/format new partition and set GPT type
-7. Re-enable WinRE (`reagentc /enable`)
+### Gereksinimler
+- Windows 10/11 (reagentc aracı mevcut olmalı)
+- **Yönetici (Administrator)** hakları ile çalıştırma zorunludur
+- PowerShell 5.1 veya PowerShell 7+
 
-## Examples
+### ⚠️ Önemli Uyarılar
+- **Yedek alın!** Partition ve disk işlemleri veri kaybına yol açabilir.
+- Önce `-WhatIf` ile simülasyon çalıştırın.
+- Script sadece **Disk 0** üzerinde çalışır.
+
+### Parametreler
+
+| Parametre | Açıklama |
+|-----------|----------|
+| `-WhatIf` | Gerçek değişiklik yapmadan adımları simüle eder (güvenli test modu) |
+| `-Force` | Onay istemeden tüm adımları uygular + minimum alan uyarılarını geçer |
+| `-Verbose` | Ayrıntılı çıktı/log için verbose modu |
+
+### Script Akışı
+
+```
+1. PRE-CHECK: Disk 0'da "Unallocated" (boş) alan var mı?
+   ├─ Yok → HATA: "No unallocated space found" → Çıkış
+   ├─ < 1.2 GB → Uyarı, -Force gerekli
+   └─ >= 1.2 GB → OK, devam
+        ↓
+2. Yedek onayı iste (YES yazılmalı, -Force/-WhatIf ile atlanır)
+        ↓
+3. Recovery partition'ı bul (GPT Type ile tüm partition'ları tarar)
+   ├─ Bulunamadı → HATA → Çıkış
+   └─ Bulundu → OK, devam
+        ↓
+4. Partition doğrulama (boyut < 10 GB olmalı)
+   ├─ Çok büyük → HATA: "Too large, might be Windows!" → Çıkış
+   └─ OK → devam
+        ↓
+5. WinRE disable et (reagentc /disable)
+        ↓
+6. Eski Recovery partition'ı sil
+        ↓
+7. C: sürücüsünü genişlet (1 GB rezerv bırakır)
+        ↓
+8. Yeni Recovery partition oluştur + NTFS formatla
+        ↓
+9. GPT Type + Hidden attribute ayarla (diskpart)
+        ↓
+10. WinRE enable et (reagentc /enable)
+        ↓
+   TAMAMLANDI!
+```
+
+### Örnek Kullanım
+
 ```powershell
-# Simulation (safe)
+# 1. Simülasyon (güvenli test)
 .\Winre-Fix.ps1 -WhatIf -Verbose
 
-# Normal run (asks for confirmation)
+# 2. Normal çalıştırma (onay sorar)
 .\Winre-Fix.ps1
 
-# Force run (no confirmation)
+# 3. Otomatik çalıştırma (onay sormaz)
 .\Winre-Fix.ps1 -Force
 ```
 
-## Log
-- Default log path: `C:\Users\<YourUser>\Desktop\WinRE-Fix-Log.txt`
+### Log Dosyası
+- Konum: `C:\temp\WinRE-Fix-Log.txt`
 
-If you want, I can also add a short `USAGE.md` or include the README content inside the script header comments. Tell me if you'd like me to also add an explicit interactive backup confirmation inside `Winre-Fix.ps1`.
+---
+
+## 🇬🇧 English
+
+### Summary
+
+`Winre-Fix.ps1` is a PowerShell script that safely moves/recreates the Windows Recovery Environment (WinRE) to a new Recovery partition.
+
+### Requirements
+- Windows 10/11 (must have `reagentc` available)
+- **Run as Administrator** (required)
+- PowerShell 5.1 or PowerShell 7+
+
+### ⚠️ Important Warnings
+- **Back up your data!** Disk/partition operations can cause data loss.
+- Run with `-WhatIf` first to simulate.
+- Script only works on **Disk 0**.
+
+### Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| `-WhatIf` | Simulate steps without making changes (safe test mode) |
+| `-Force` | Skip confirmation prompts + override minimum space warnings |
+| `-Verbose` | Enable detailed output/logging |
+
+### Script Flow
+
 ```
+1. PRE-CHECK: Is there "Unallocated" space on Disk 0?
+   ├─ None → ERROR: "No unallocated space found" → Exit
+   ├─ < 1.2 GB → Warning, requires -Force
+   └─ >= 1.2 GB → OK, proceed
+        ↓
+2. Backup confirmation (must type YES, skipped with -Force/-WhatIf)
+        ↓
+3. Find Recovery partition (scans all partitions by GPT Type)
+   ├─ Not found → ERROR → Exit
+   └─ Found → OK, proceed
+        ↓
+4. Partition validation (size must be < 10 GB)
+   ├─ Too large → ERROR: "Might be Windows drive!" → Exit
+   └─ OK → proceed
+        ↓
+5. Disable WinRE (reagentc /disable)
+        ↓
+6. Delete old Recovery partition
+        ↓
+7. Extend C: drive (reserves 1 GB)
+        ↓
+8. Create new Recovery partition + format NTFS
+        ↓
+9. Set GPT Type + Hidden attribute (diskpart)
+        ↓
+10. Enable WinRE (reagentc /enable)
+        ↓
+   COMPLETE!
+```
+
+### Usage Examples
+
+```powershell
+# 1. Simulation (safe test)
+.\Winre-Fix.ps1 -WhatIf -Verbose
+
+# 2. Normal run (asks for confirmation)
+.\Winre-Fix.ps1
+
+# 3. Automatic run (no confirmation)
+.\Winre-Fix.ps1 -Force
+```
+
+### Log File
+- Location: `C:\temp\WinRE-Fix-Log.txt`
+
+---
+
+## Safety Features
+
+| Check | Description |
+|-------|-------------|
+| 🔒 Administrator | Script exits if not run as Administrator |
+| 💾 Unallocated Space | Checks for free disk space **before** any changes |
+| ✅ Backup Confirmation | Requires typing "YES" before proceeding (skipped with -Force) |
+| 🔍 GPT Type Scan | Finds Recovery partition by scanning all partitions for correct GPT type |
+| 📏 Size Sanity Check | Recovery partition must be < 10 GB (prevents deleting Windows!) |
+| 📝 Full Logging | All operations logged to `C:\temp\WinRE-Fix-Log.txt` |
+| 🛡️ Winre.wim Check | Verifies recovery image exists before enabling WinRE |
+
+---
+
+## License
+
+MIT License - Use at your own risk.
+
+## Author
+
+Created for safe WinRE partition management on Windows systems.

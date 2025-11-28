@@ -1,0 +1,102 @@
+﻿2025-11-28 23:37:42 [INFO] === WinRE Move Process Started ===
+2025-11-28 23:37:47 [INFO] User confirmed backup. Proceeding...
+2025-11-28 23:37:48 [INFO] Checking for unallocated space on Disk 0 before starting...
+2025-11-28 23:37:57 [INFO] Disk 0 layout:
+2025-11-28 23:37:58 [INFO]   Total disk size: 91 GB
+2025-11-28 23:37:58 [INFO]   Used by partitions: 90 GB
+2025-11-28 23:37:58 [INFO]   Unallocated space: 1 GB
+2025-11-28 23:37:58 [WARN] WARNING: Unallocated space is only 1 GB (minimum recommended: 1.2 GB).
+2025-11-28 23:37:59 [WARN] This may not be enough to create a proper Recovery partition.
+2025-11-28 23:38:00 [ERROR] Run with -Force to proceed anyway (not recommended).
+2025-11-28 23:38:28 [INFO] === WinRE Move Process Started ===
+2025-11-28 23:38:29 [INFO] Checking for unallocated space on Disk 0 before starting...
+2025-11-28 23:38:29 [INFO] Disk 0 layout:
+2025-11-28 23:38:29 [INFO]   Total disk size: 91 GB
+2025-11-28 23:38:30 [INFO]   Used by partitions: 90 GB
+2025-11-28 23:38:30 [INFO]   Unallocated space: 1 GB
+2025-11-28 23:38:30 [WARN] WARNING: Unallocated space (1 GB) is below recommended minimum (1.2 GB).
+2025-11-28 23:38:30 [WARN] -Force supplied, proceeding anyway...
+2025-11-28 23:38:30 [INFO] Checking current WinRE with 'reagentc /info'...
+2025-11-28 23:38:31 [INFO] reagentc /info output:
+2025-11-28 23:38:31 [INFO]   Windows Recovery Environment (Windows RE) and system reset configuration
+2025-11-28 23:38:32 [INFO]   Information:
+2025-11-28 23:38:32 [INFO]   
+2025-11-28 23:38:32 [INFO]       Windows RE status:         Enabled
+2025-11-28 23:38:32 [INFO]       Windows RE location:       \\?\GLOBALROOT\device\harddisk0\partition4\Recovery\WindowsRE
+2025-11-28 23:38:32 [INFO]       Boot Configuration Data (BCD) identifier: 26274c25-5192-11f0-9908-ce749e5eedcf
+2025-11-28 23:38:32 [INFO]       Recovery image location:   
+2025-11-28 23:38:32 [INFO]       Recovery image index:      0
+2025-11-28 23:38:32 [INFO]       Custom image location:     
+2025-11-28 23:38:32 [INFO]       Custom image index:        0
+2025-11-28 23:38:33 [INFO]   
+2025-11-28 23:38:33 [INFO]   REAGENTC.EXE: Operation Successful.
+2025-11-28 23:38:33 [INFO]       
+2025-11-28 23:38:33 [INFO] Old WinRE partition number: 4
+2025-11-28 23:38:34 [INFO] Verifying partition 4 is a valid Recovery partition...
+2025-11-28 23:38:35 [INFO] Partition 4 details:
+2025-11-28 23:38:35 [INFO]   Size: 90228 MB
+2025-11-28 23:38:35 [INFO]   GPT Type: {ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}
+2025-11-28 23:38:36 [ERROR] ERROR: Partition 4 is NOT a Recovery partition!
+2025-11-28 23:38:36 [ERROR] Expected GPT Type: {de94bba4-06d1-4d40-a16a-bfd50179d6ac}
+2025-11-28 23:38:36 [ERROR] Actual GPT Type: {ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}
+2025-11-28 23:38:36 [ERROR] This might be your Windows (C:) drive. Aborting to prevent data loss!
+2025-11-28 23:53:33 [INFO] === WinRE Move Process Started ===
+2025-11-28 23:53:33 [INFO] Checking for unallocated space on Disk 0 before starting...
+2025-11-28 23:53:33 [INFO] Disk 0 layout:
+2025-11-28 23:53:33 [INFO]   Total disk size: 91 GB
+2025-11-28 23:53:33 [INFO]   Used by partitions: 90 GB
+2025-11-28 23:53:33 [INFO]   Unallocated space: 1 GB
+2025-11-28 23:53:33 [WARN] WARNING: Unallocated space (1 GB) is below recommended minimum (1.2 GB).
+2025-11-28 23:53:33 [WARN] -Force supplied, proceeding anyway...
+2025-11-28 23:53:33 [INFO] Checking current WinRE status with 'reagentc /info'...
+2025-11-28 23:53:33 [INFO] reagentc /info output:
+2025-11-28 23:53:34 [INFO]   Windows Recovery Environment (Windows RE) and system reset configuration
+2025-11-28 23:53:34 [INFO]   Information:
+2025-11-28 23:53:34 [INFO]   
+2025-11-28 23:53:34 [INFO]       Windows RE status:         Enabled
+2025-11-28 23:53:34 [INFO]       Windows RE location:       \\?\GLOBALROOT\device\harddisk0\partition4\Recovery\WindowsRE
+2025-11-28 23:53:34 [INFO]       Boot Configuration Data (BCD) identifier: 26274c25-5192-11f0-9908-ce749e5eedcf
+2025-11-28 23:53:34 [INFO]       Recovery image location:   
+2025-11-28 23:53:34 [INFO]       Recovery image index:      0
+2025-11-28 23:53:34 [INFO]       Custom image location:     
+2025-11-28 23:53:34 [INFO]       Custom image index:        0
+2025-11-28 23:53:34 [INFO]   
+2025-11-28 23:53:34 [INFO]   REAGENTC.EXE: Operation Successful.
+2025-11-28 23:53:34 [INFO]       
+2025-11-28 23:53:34 [INFO] Scanning Disk 0 for Recovery partition (GPT Type: {de94bba4-06d1-4d40-a16a-bfd50179d6ac})...
+2025-11-28 23:53:34 [INFO] Found 2 Recovery partitions. Using the last one.
+2025-11-28 23:53:34 [INFO] Found Recovery partition:
+2025-11-28 23:53:34 [INFO]   Partition Number: 5
+2025-11-28 23:53:34 [INFO]   Size: 1023 MB
+2025-11-28 23:53:34 [INFO]   GPT Type: {de94bba4-06d1-4d40-a16a-bfd50179d6ac}
+2025-11-28 23:53:34 [INFO] OK: Valid Recovery partition found (Partition 5).
+2025-11-28 23:53:34 [INFO] Running 'reagentc /disable'...
+2025-11-28 23:53:34 [INFO] WinRE disabled → Winre.wim preserved.
+2025-11-28 23:53:34 [INFO] Preparing to delete old Recovery partition 5...
+2025-11-28 23:53:34 [INFO] Deleting old partition 5...
+2025-11-28 23:53:34 [INFO] Old recovery partition deleted successfully.
+2025-11-28 23:53:39 [INFO] C: will be extended: +1 GB (1 GB reserved)
+2025-11-28 23:53:39 [INFO] C: extended.
+2025-11-28 23:53:42 [INFO] New partition formatted.
+2025-11-28 23:53:42 [INFO] Setting partition type to Recovery and marking as hidden...
+2025-11-28 23:53:43 [INFO] New recovery partition: 5 → GPT type set + hidden
+2025-11-28 23:53:43 [INFO] Enabling WinRE...
+2025-11-28 23:53:43 [INFO] Winre.wim found at C:\Windows\System32\Recovery\Winre.wim
+2025-11-28 23:53:43 [INFO] Running 'reagentc /enable'...
+2025-11-28 23:53:46 [INFO] WinRE enabled successfully.
+2025-11-28 23:53:46 [INFO] 
+=== OPERATION COMPLETE! ===
+2025-11-28 23:53:46 [INFO] Windows Recovery Environment (Windows RE) and system reset configuration
+2025-11-28 23:53:46 [INFO] Information:
+2025-11-28 23:53:46 [INFO] 
+2025-11-28 23:53:46 [INFO]     Windows RE status:         Enabled
+2025-11-28 23:53:46 [INFO]     Windows RE location:       \\?\GLOBALROOT\device\harddisk0\partition4\Recovery\WindowsRE
+2025-11-28 23:53:46 [INFO]     Boot Configuration Data (BCD) identifier: 26274c27-5192-11f0-9908-ce749e5eedcf
+2025-11-28 23:53:46 [INFO]     Recovery image location:   
+2025-11-28 23:53:46 [INFO]     Recovery image index:      0
+2025-11-28 23:53:46 [INFO]     Custom image location:     
+2025-11-28 23:53:46 [INFO]     Custom image index:        0
+2025-11-28 23:53:46 [INFO] 
+2025-11-28 23:53:46 [INFO] REAGENTC.EXE: Operation Successful.
+2025-11-28 23:53:47 [INFO]     
+2025-11-28 23:53:47 [INFO] Log: C:\temp\WinRE-Fix-Log.txt
